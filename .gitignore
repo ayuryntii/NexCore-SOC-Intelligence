@@ -22,3 +22,17 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Exclude Old Portfolio & Karyawan CRUD
+app/Http/Controllers/PortfolioController.php
+app/Http/Controllers/KaryawanController.php
+resources/views/education.blade.php
+resources/views/project.blade.php
+resources/views/dosen.blade.php
+resources/views/welcome.blade.php
+resources/views/home.blade.php
+resources/views/layouts/master.blade.php
+resources/views/partials/cv_template.blade.php
+database/migrations/2026_04_20_150524_create_karyawans_table.php
+public/images/foto-ayu.jpg
+Evi_Lestari_Pemrograman_Web_Lanjutan_publish.pdf
