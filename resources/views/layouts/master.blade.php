@@ -318,99 +318,110 @@
     </style>
     @stack('styles')
 </head>
-<body>
-    <div class="scanline"></div>
-    <div class="noise" id="noise"></div>
+<body class="bg-slate-950 text-slate-200 min-h-screen flex flex-col transition-colors duration-300 overflow-x-hidden">
+    <!-- Matrix Background System -->
+    <canvas id="matrix-canvas" class="fixed inset-0 z-[-1] opacity-20"></canvas>
+    <div class="fixed inset-0 z-[-2] bg-slate-950"></div>
+    <div class="fixed inset-0 z-[-1] bg-gradient-to-b from-transparent via-slate-950/50 to-slate-950"></div>
+    
+    <script>
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, columns;
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+=-{}[]|;:,.<>?/πΩΣΔ";
+        const fontSize = 14;
+        let drops = [];
 
-    <!-- ============================================== -->
-    <!-- NAVBAR (Bagian Navigasi Utama)                 -->
-    <!-- ============================================== -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
+        function initMatrix() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            columns = Math.floor(width / fontSize);
+            drops = new Array(columns).fill(1);
+        }
 
-            <!-- Bagian Logo (Kiri) -->
-            <a href="{{ route('home') }}" class="logo">
-                <!-- Ikon Logo (Menggunakan FontAwesome) -->
-                <div class="logo-icon">
-                    <i class="fab fa-connectdevelop"></i>
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(2, 6, 23, 0.05)';
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = '#10b981';
+            ctx.font = fontSize + 'px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        initMatrix();
+        window.addEventListener('resize', initMatrix);
+        setInterval(drawMatrix, 50);
+    </script>
+
+    <!-- Navbar - HUD Style -->
+    <nav class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-2xl border-b border-emerald-500/20 px-8 py-5">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="{{ route('home') }}" class="flex items-center gap-4 group">
+                <div class="relative w-12 h-12 flex-shrink-0">
+                    <div class="absolute inset-0 bg-emerald-500/10 rounded-2xl border border-emerald-500/30 group-hover:border-emerald-500 transition-colors shadow-[0_0_20px_rgba(16,185,129,0.1)]"></div>
+                    <i class="fab fa-connectdevelop absolute inset-0 flex items-center justify-center text-emerald-500 text-2xl animate-pulse"></i>
                 </div>
-                <!-- Teks Logo & Sub-teks -->
-                <div class="logo-text">
-                    AYU_RIANTI
-                    <span>[SYS_SOFTWARE_ENG]</span>
+                <div>
+                    <p class="text-lg font-black font-mono text-white leading-none tracking-tighter uppercase">AYU_RIANTI</p>
+                    <p class="text-[9px] font-mono text-emerald-500/60 uppercase tracking-[0.4em] mt-1 font-black">SEC_SYSTEMS_ENG</p>
                 </div>
             </a>
 
-            <div class="nav-links">
-                <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
-                <a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">About</a>
-                <a href="{{ route('education') }}" class="{{ request()->routeIs('education') ? 'active' : '' }}">Education</a>
-                <a href="{{ route('project') }}" class="{{ request()->routeIs('project') ? 'active' : '' }}">Project</a>
+            <div class="hidden md:flex items-center gap-2 bg-slate-900/50 p-1.5 rounded-2xl border border-slate-800">
+                @foreach([
+                    ['route' => 'home', 'label' => 'DASHBOARD'],
+                    ['route' => 'about', 'label' => 'IDENTITY'],
+                    ['route' => 'education', 'label' => 'KNOWLEDGE'],
+                    ['route' => 'project', 'label' => 'PROTOCOLS'],
+                    ['route' => 'karyawan.index', 'label' => 'PERSONNEL']
+                ] as $link)
+                    <a href="{{ route($link['route']) }}" class="px-5 py-2.5 rounded-xl font-mono text-[10px] font-black uppercase tracking-widest transition-all {{ request()->routeIs($link['route'].'*') ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.1)]' : 'text-slate-500 hover:text-emerald-400 hover:bg-emerald-500/5' }}">
+                        {{ $link['label'] }}
+                    </a>
+                @endforeach
             </div>
 
+            <div class="flex items-center gap-4">
+                <div class="hidden xl:flex flex-col items-end">
+                    <span class="text-[9px] font-mono text-emerald-500 font-black tracking-widest">ENCRYPTED_LINK_ACTIVE</span>
+                    <span class="text-[9px] font-mono text-slate-500">NODE_ID: {{ strtoupper(substr(md5(request()->ip()), 0, 8)) }}</span>
+                </div>
+                <div class="h-8 w-px bg-slate-800"></div>
+                <a href="{{ route('login') }}" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all">
+                    <i class="fas fa-lock"></i>
+                </a>
+            </div>
         </div>
     </nav>
-    <!-- Akhir Navbar -->
 
-    <main class="container">
+    <main class="flex-grow container max-w-7xl mx-auto py-12 px-6 relative z-10">
         @yield('content')
     </main>
 
-    <footer>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fas fa-terminal"></i></a>
+    <footer class="bg-slate-950/90 backdrop-blur-xl border-t border-emerald-500/10 py-12 px-8 relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex flex-col items-center md:items-start">
+                <div class="flex gap-4 mb-4">
+                    <a href="https://github.com/ayuryntii" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 hover:text-emerald-400 hover:border-emerald-500 transition-all"><i class="fab fa-github"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 hover:text-emerald-400 hover:border-emerald-500 transition-all"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 hover:text-emerald-400 hover:border-emerald-500 transition-all"><i class="fas fa-terminal"></i></a>
+                </div>
+                <p class="text-[9px] font-mono text-slate-600 uppercase tracking-[0.2em] font-black">Core_Software_Infrastructure // v2.0.4_BETA</p>
+            </div>
+
+            <div class="text-center md:text-right">
+                <p class="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] mb-1">Authenticated: <span class="text-emerald-500">{{ strtoupper($name ?? 'Ayu Rianti') }}</span></p>
+                <p class="text-[9px] font-mono text-emerald-500/40 uppercase tracking-widest font-black">PROCESS_NOMINAL // &copy; {{ date('Y') }} // SYNCED_WITH_LARAVEL_CORE</p>
+            </div>
         </div>
-        <p style="font-size: 0.8rem; color: var(--sys-text-muted);">
-            SYSTEM_OPERATOR: {{ strtoupper($name ?? 'Ayu Rianti') }} // ID: 037 // LOCAL_HOST: {{ request()->ip() }}
-        </p>
-        <p style="font-size: 0.7rem; margin-top: 0.5rem; color: var(--sys-success);">
-            PROCESS_STABLE // &copy; {{ date('Y') }} // BUILT_WITH_LARAVEL_CORE
-        </p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
     <script>
-        AOS.init({
-            duration: 600,
-            once: true,
-            offset: 50
-        });
-
-        // CV Download Logic
-        function downloadCV() {
-            const element = document.getElementById('cv-template');
-            element.style.display = 'block'; // Temporarily show for capture
-
-            const opt = {
-                margin:       0,
-                filename:     'CV_Ayu_Rianti.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
-                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-            };
-
-            html2pdf().set(opt).from(element).save().then(() => {
-                element.style.display = 'none'; // Hide again after capture
-            });
-        }
-
-        // Technical noise effect simulation
-        const noise = () => {
-            let canvas = document.createElement('canvas');
-            let ctx = canvas.getContext('2d');
-            canvas.width = 100;
-            canvas.height = 100;
-            let idata = ctx.createImageData(100, 100);
-            let buffer32 = new Uint32Array(idata.data.buffer);
-            for (let i = 0; i < buffer32.length; i++) buffer32[i] = ((Math.random() * 255) | 0) << 24;
-            ctx.putImageData(idata, 0, 0);
-            document.getElementById('noise').style.backgroundImage = `url(${canvas.toDataURL()})`;
-        };
-        noise();
+        AOS.init({ duration: 800, once: true });
     </script>
     @stack('scripts')
 </body>

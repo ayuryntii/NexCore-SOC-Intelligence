@@ -80,8 +80,8 @@
                 </div>
             </div>
             <div style="padding: 1rem; border-top: 1px solid var(--sys-border); text-align: right;">
-                <a href="{{ $project['link'] }}" class="btn-outline" style="padding: 0.4rem 1rem; font-size: 0.7rem;">
-                    RUN_SOURCE_DEMO <i class="fas fa-play"></i>
+                <a href="{{ $project['link'] }}" target="_blank" class="btn-outline" style="padding: 0.4rem 1rem; font-size: 0.7rem;">
+                    ACCESS_GITHUB_REPO <i class="fab fa-github"></i>
                 </a>
             </div>
         </div>

@@ -200,11 +200,47 @@ class PortfolioController extends Controller
     {
         $projects = [
             [
+                'nama' => 'NexCore-Auth-Shield',
+                'teknologi' => 'NestJS, TypeScript, JWT, RBAC, Cyber HUD',
+                'deskripsi' => 'Enterprise-grade Identity & Access Management (IAM) system built with NestJS and TypeScript. Features a professional Cyber HUD dashboard, JWT authentication, and RBAC architecture for high-security environments.',
+                'tahun' => '2025',
+                'link' => 'https://github.com/ayuryntii/NexCore-Auth-Shield',
+                'features' => 'JWT Auth, RBAC Architecture, Cyber HUD Dashboard, NestJS Backend',
+                'image_icon' => 'fa-user-shield'
+            ],
+            [
+                'nama' => 'Flashsale-Engine',
+                'teknologi' => 'Go, RabbitMQ, Redis, React, Microservices',
+                'deskripsi' => 'Production-grade Flash Sale microservices built with Go, RabbitMQ & Redis. Solves Race Condition with atomic operations. Features a real-time Cyber HUD admin dashboard in React.',
+                'tahun' => '2025',
+                'link' => 'https://github.com/ayuryntii/Flashsale-Engine',
+                'features' => 'Race Condition Solution, Atomic Operations, Real-time Dashboard, Microservices Arch',
+                'image_icon' => 'fa-bolt'
+            ],
+            [
+                'nama' => 'RabbitMQ-RaceGuard-Ticketing',
+                'teknologi' => 'Node.js, RabbitMQ, React, Concurrency, Semaphore',
+                'deskripsi' => 'An advanced ticket booking simulator demonstrating the implementation of RabbitMQ as a Mutual Exclusion mechanism. Built with Laravel to prevent database Race Conditions, complete with a premium Cyber HUD interface.',
+                'tahun' => '2025',
+                'link' => 'https://github.com/ayuryntii/RabbitMQ-RaceGuard-Ticketing',
+                'features' => 'Mutual Exclusion, Semaphore Mechanism, Concurrency Control, Race Condition Prevention',
+                'image_icon' => 'fa-ticket-alt'
+            ],
+            [
+                'nama' => 'PortoAyy-SystemCore',
+                'teknologi' => 'Laravel, Blade, Vanilla CSS, AOS',
+                'deskripsi' => 'A futuristic "System Core" themed personal portfolio built with Laravel. Features a high-tech HUD interface, complete professional profile showcases, and an integrated automated PDF CV generator.',
+                'tahun' => '2026',
+                'link' => 'https://github.com/ayuryntii/PortoAyy-SystemCore',
+                'features' => 'Cyber HUD Interface, Integrated CV Generator, Advanced AOS Animations, Laravel Backend Core',
+                'image_icon' => 'fa-project-diagram'
+            ],
+            [
                 'nama' => 'StudAyy-CoreSystem',
                 'teknologi' => 'Vanilla JS, IndexedDB, HTML5, CSS3',
                 'deskripsi' => 'Advanced personal task and learning material management system featuring a futuristic Cyber/HUD interface. Built with Vanilla JS and IndexedDB for high-performance local data persistence.',
                 'tahun' => '2024',
-                'link' => 'https://github.com/AyuRianti/StudAyy-CoreSystem',
+                'link' => 'https://github.com/ayuryntii/StudAyy-CoreSystem',
                 'features' => 'Futuristic Cyber/HUD UI, IndexedDB Persistence, Dynamic Task Management, Responsive Core Architecture',
                 'image_icon' => 'fa-microchip'
             ],
@@ -213,7 +249,7 @@ class PortfolioController extends Controller
                 'teknologi' => 'PHP, MySQL, Machine Learning Logic',
                 'deskripsi' => 'Intelligent IT career recommendation engine designed to map technical competencies to industry-standard career paths using precision analysis and competency mapping.',
                 'tahun' => '2024',
-                'link' => 'https://github.com/AyuRianti',
+                'link' => 'https://github.com/ayuryntii/SkillPath-AI',
                 'features' => 'AI Precision Analysis, Competency Mapping, Career Matrix, Personalized Learning Paths',
                 'image_icon' => 'fa-brain'
             ],
@@ -222,7 +258,7 @@ class PortfolioController extends Controller
                 'teknologi' => 'CodeIgniter 3, HTML/CSS, MySQL',
                 'deskripsi' => 'A web-based Academic Guidance Management System designed to streamline collaboration between students, lecturers, and coordinators through digitized workflows and real-time tracking.',
                 'tahun' => '2024',
-                'link' => 'https://github.com/AyuRianti',
+                'link' => 'https://github.com/ayuryntii/ScholarAyy-academic-guidance',
                 'features' => 'Digitized Workflows, Role-based Dashboards (Student, Lecturer, Coordinator), Real-time Tracking, Exportable Academic Reports',
                 'image_icon' => 'fa-chalkboard-teacher'
             ],
@@ -231,16 +267,16 @@ class PortfolioController extends Controller
                 'teknologi' => 'PHP, MySQL, QR-Code Scanner',
                 'deskripsi' => 'Sistem Absensi Mahasiswa berbasis QR Code otomatis. Dibangun menggunakan arsitektur web modern yang mendukung fungsionalitas scan langsung dan pelaporan persentase kehadiran seketika.',
                 'tahun' => '2024',
-                'link' => 'https://github.com/AyuRianti',
+                'link' => 'https://github.com/ayuryntii/QR-Attendance-UMC',
                 'features' => 'Multi-role (Admin, Dosen, Mahasiswa), Real-Time QR Code Generation & Scanning, Automatic Recap Reports',
                 'image_icon' => 'fa-qrcode'
             ],
             [
-                'nama' => 'Finance-manager (Database Final Project)',
+                'nama' => 'Finance-manager',
                 'teknologi' => 'HTML, CSS, Relational Database, SQL',
                 'deskripsi' => 'A specialized relational database architectural project built for comprehensive financial management. Focuses on advanced ERD designs, complex SQL joins, and robust relational integrity.',
                 'tahun' => '2024',
-                'link' => 'https://github.com/AyuRianti',
+                'link' => 'https://github.com/ayuryntii/Finance-manager',
                 'features' => 'Complex SQL Relationships, Transaction Ledger System, Financial Reporting Simulation, Data Normalization',
                 'image_icon' => 'fa-file-invoice-dollar'
             ],
@@ -249,9 +285,36 @@ class PortfolioController extends Controller
                 'teknologi' => 'PHP Native, HTML, Bootstrap, MySQL',
                 'deskripsi' => 'A highly scalable end-to-end hotel reservation booking engine. Developed natively in PHP to handle concurrent bookings, room unavailability validation, and customer relationship data.',
                 'tahun' => '2024',
-                'link' => 'https://github.com/AyuRianti',
+                'link' => 'https://github.com/ayuryntii/Hotel-reservation-system',
                 'features' => 'Real-Time Room Availability, Concurrent Booking Safety Check, Payment Gateway Simulation, Admin Dashboard',
                 'image_icon' => 'fa-concierge-bell'
+            ],
+            [
+                'nama' => 'NexCore-Mobile-Intelligence',
+                'teknologi' => 'Kotlin, Android Native, System Telemetry',
+                'deskripsi' => 'Professional Android Native application built with Kotlin, featuring real-time system telemetry (RAM, Storage, Battery), asynchronous terminal logs, and a futuristic Cyber HUD interface.',
+                'tahun' => '2025',
+                'link' => 'https://github.com/ayuryntii/NexCore-Mobile-Intelligence',
+                'features' => 'Real-time Telemetry, Async Terminal Logs, Cyber HUD Interface, Kotlin Core Architecture',
+                'image_icon' => 'fa-mobile-alt'
+            ],
+            [
+                'nama' => 'NexCore-Analytics',
+                'teknologi' => 'React, TypeScript, Vite, CoinGecko API',
+                'deskripsi' => 'A professional, enterprise-grade Cyber HUD analytics dashboard. Features real-time market data integration via CoinGecko API and dynamic data visualization with high-performance charts.',
+                'tahun' => '2025',
+                'link' => 'https://github.com/ayuryntii/NexCore-Analytics',
+                'features' => 'Market Data Integration, Dynamic Visualization, Real-time Updates, Enterprise-grade Dashboard',
+                'image_icon' => 'fa-chart-line'
+            ],
+            [
+                'nama' => 'WinCalc-Desktop',
+                'teknologi' => 'C#, WinForms, .NET Framework',
+                'deskripsi' => 'A standard Windows Calculator application built with C# and WinForms. Features complete memory operations and a modern UI optimized for desktop use.',
+                'tahun' => '2025',
+                'link' => 'https://github.com/ayuryntii/WinCalc-Desktop',
+                'features' => 'Memory Operations (MC, MR, M+, M-), Modern UI Design, Desktop Optimized, C# Logic',
+                'image_icon' => 'fa-calculator'
             ]
         ];
         return view('project', compact('projects'));
